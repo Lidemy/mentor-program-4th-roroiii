@@ -7,7 +7,7 @@
 
 
 ### 你需要的步驟
-1. 打開終端機介面，或是 iTrem 
+1. 打開終端機介面，或是 iTerm2 
 2. `cd` 到你要的新增資料夾的地方，例如 `cd ~/Downloads/test`
 3. 輸入 `mkdir wifi` ，新增資料夾 wifi
 4. `cd wifi` 移動到 wifi 資料夾裡面
