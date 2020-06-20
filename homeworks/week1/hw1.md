@@ -19,9 +19,13 @@
 ---
 	
 ### Branch 開發流程
+
 1. `git commit -am "c名稱"` 一次現在的穩定版本
 2. `git branch b名稱`  開發新功能，先用 Branch 新建一個是好習慣  
 3. `git checkout b名稱`  切換到 b名稱 分支做開發
+4. 開發中
+5. 新增的檔案，加入`git add .`
+6. `git commit -am "commit 名稱"` 提交改動
 4. `git checkout master`  開發完成切回主幹
 5. `git merge b名稱`  把 b名稱 的分支合併進 Master
 6. `git commit -am "c名稱"`  commit 修改的內容，結束
