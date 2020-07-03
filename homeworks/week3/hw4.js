@@ -26,8 +26,8 @@ function isPalindrome(n) {
 
 function solve(input) {
 	if (input[0] === isPalindrome(input[0])) {
-		console.log(true);
+		console.log('True');
 	} else {
-		console.log(false);
+		console.log('False');
 	}
 }
