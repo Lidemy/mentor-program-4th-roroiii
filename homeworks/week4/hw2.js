@@ -5,7 +5,7 @@ const action = process.argv[2];
 const books = process.argv[3];
 
 // 印出前二十本書的 id 與書名
-if (action === 'list') {
+function listBook() {
     const count = 20;
     request(
         {
@@ -28,9 +28,8 @@ if (action === 'list') {
         },
     );
 }
-
 // 輸出 id 為 books 的書籍
-if (action === 'read') {
+function readBook() {
     request(
         {
             url: `${webUrl}books/`,
@@ -49,9 +48,8 @@ if (action === 'read') {
         },
     );
 }
-
 // 刪除 id 為 books 的書籍
-if (action === 'delete') {
+function deleteBook() {
     request.delete(
         {
             url: `${webUrl}books/${books}`,
@@ -69,9 +67,8 @@ if (action === 'delete') {
         },
     );
 }
-
 // 新增一本名為 books 的書
-if (action === 'create') {
+function createBook() {
     request.post(
         {
             url: `${webUrl}books`,
@@ -89,9 +86,8 @@ if (action === 'create') {
         },
     );
 }
-
 // 更新 id 為 books 的書名為 bookName
-if (action === 'update') {
+function updateBook() {
     const bookName = process.argv[4];
     request.patch(
         {
@@ -110,3 +106,9 @@ if (action === 'update') {
         },
     );
 }
+// 判斷條件
+if (action === 'list') { listBook(); }
+if (action === 'read') { readBook(); }
+if (action === 'delete') { deleteBook(); }
+if (action === 'create') { createBook(); }
+if (action === 'update') { updateBook(); }
