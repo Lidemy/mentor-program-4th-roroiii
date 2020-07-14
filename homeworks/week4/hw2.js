@@ -32,19 +32,18 @@ function listBook() {
 function readBook() {
     request(
         {
-            url: `${webUrl}books/`,
-            form: {
-                id: '',
-                name: '',
-            },
+            url: `${webUrl}books/${books}`,
+            // form: {
+            //     id: '',
+            //     name: '',
+            // },
         },
         (error, response, body) => {
             if (error) {
-                console.log(response.statusCode);
                 return console.log(`輸出失敗 ${error}`);
             }
             const toJson = JSON.parse(body);
-            return console.log(`${toJson[books - 1].id} ${toJson[books - 1].name}`);
+            return console.log(`${toJson.id} ${toJson.name}`);
         },
     );
 }
