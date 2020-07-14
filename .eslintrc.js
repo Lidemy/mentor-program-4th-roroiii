@@ -22,8 +22,7 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'no-tabs':'off',
-     'indent': [
-    'error', 'tab'
-  ],
+     'indent': ['error', 'tab'],
+     'indent': ['error', 4],
   },
 };
