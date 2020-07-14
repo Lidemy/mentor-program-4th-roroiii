@@ -33,10 +33,6 @@ function readBook() {
     request(
         {
             url: `${webUrl}books/${books}`,
-            // form: {
-            //     id: '',
-            //     name: '',
-            // },
         },
         (error, response, body) => {
             if (error) {
@@ -52,16 +48,12 @@ function deleteBook() {
     request.delete(
         {
             url: `${webUrl}books/${books}`,
-            form: {
-                id: '',
-            },
         },
         (error, response) => {
             if (error) {
                 console.log(response.statusCode);
                 return console.log(`刪除失敗 ${error}`);
             }
-            console.log(response.statusCode);
             return console.log(`刪除了 ID 為 ${books} 的書籍。`);
         },
     );

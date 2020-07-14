@@ -10,7 +10,7 @@ const options = {
 };
 
 function callback(error, response, body) {
-    if (!error && response.statusCode === 200) {
+    if (!error && response.statusCode >= 200 && response.statusCode < 300) {
         const info = JSON.parse(body);
         const twitchGame = info.top;
         for (let i = 0; i < twitchGame.length; i += 1) {

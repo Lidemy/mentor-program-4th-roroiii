@@ -1,9 +1,8 @@
 const request = require('request');
 
-const count = 10;
 request(
     {
-        url: `https://lidemy-book-store.herokuapp.com/books?_limit=${count}`,
+        url: 'https://lidemy-book-store.herokuapp.com/books?_limit=10',
         form: {
             id: '',
             name: '',
@@ -12,7 +11,7 @@ request(
     (error, response, body) => {
         // console.log(response.statusCode);
         const toJson = JSON.parse(body);
-        for (let i = 0; i < count; i += 1) {
+        for (let i = 0; i < toJson.length; i += 1) {
             console.log(`${toJson[i].id} ${toJson[i].name}`);
         }
     },
