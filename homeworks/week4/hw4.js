@@ -12,9 +12,9 @@ const options = {
 function callback(error, response, body) {
     if (!error && response.statusCode >= 200 && response.statusCode < 300) {
         const info = JSON.parse(body);
-        const twitchGame = info.top;
-        for (let i = 0; i < twitchGame.length; i += 1) {
-            console.log(`${info.top[i].viewers}  ${info.top[i].game.name}`);
+        const twitchGames = info.top;
+        for (let i = 0; i < twitchGames.length; i += 1) {
+            console.log(`${twitchGames[i].viewers}  ${twitchGames[i].game.name}`);
         }
     }
 }

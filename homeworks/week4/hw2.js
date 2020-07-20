@@ -10,10 +10,6 @@ function listBook() {
     request(
         {
             url: `${webUrl}books?_limit=${count}`,
-            form: {
-                id: '',
-                name: '',
-            },
         },
         (error, response, body) => {
             if (error) {

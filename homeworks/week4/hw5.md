@@ -42,8 +42,8 @@ Base URL: https://lidemy-restaurant-store.com
 
 | 說明      	  | Method   | path             | 參數                  | 範例           |
 |----------------|----------|------------------|----------------------|----------------|
-| 回傳所有餐廳資料  | GET      | /restaurant      | _limit:限制回傳資料數量 | /restaurant?_limit=5 |
-| 回傳單一餐廳資料  | GET      | /restaurant/:id  | 無                   | /restaurant/10  |
-| 新增餐廳        | POST     | /restaurant      | name: 餐廳名稱         | 無              |
-| 刪除餐廳        | DELETE   | /restaurant/:id  | 無                    | 無              |
-| 更改餐廳資訊     | PATCH    | /restaurant/:id  | name: 餐廳名稱         | 無              |
+| 回傳所有餐廳資料  | GET      | /restaurants      | _limit:限制回傳資料數量 | /restaurants?_limit=5 |
+| 回傳單一餐廳資料  | GET      | /restaurants/:id  | 無                   | /restaurants/10  |
+| 新增餐廳        | POST     | /restaurants      | name: 餐廳名稱         | 無              |
+| 刪除餐廳        | DELETE   | /restaurants/:id  | 無                    | 無              |
+| 更改餐廳資訊     | PATCH    | /restaurants/:id  | name: 餐廳名稱         | 無              |
