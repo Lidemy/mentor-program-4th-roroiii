@@ -1,5 +1,5 @@
     body {
-        font-family: MicrosoftJhengHei;
+        font-family: Microsoft JhengHei;
     }
     .wrapper {
         display: flex;
@@ -178,6 +178,41 @@
     .map {
         margin-bottom: 36px;
     }
+    .faq {
+        margin: 0 auto;
+        max-width: 810px;
+	}
+	.faq__block {
+		display: flex;
+		padding: 18px 0;
+        border-bottom: 1px solid #a6e2c0;
+	}
+    .faq__number{
+        font-size: 24px;
+        color: #70b282;
+        font-family: 'Questrial';
+        margin-right: 16px;
+        text-align: left;
+    }
+    .faq__title{
+        font-size: 18px;
+        text-align: left;
+        color: #000000;
+    }
+    .faq__content {
+        font-size: 16px;
+        letter-spacing: 0.14px;
+        text-align: left;
+        line-height: 2em;
+        color: #000000;
+
+    }
+    .hide__info > .faq__content > p {
+		display: none;
+	}
+	.footer {
+		margin-top: 36px;
+	}
     .footer__top {
         display: flex;
         padding: 36px 12px;

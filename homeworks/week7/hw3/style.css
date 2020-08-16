@@ -1,0 +1,81 @@
+body {
+	font-family: 'Quicksand', 'Microsoft JhengHei', 'sans-serif';
+}
+.container {
+	position: relative;
+	box-sizing: border-box;
+	display: block;
+	width: 100%;
+	max-width: 760px;
+	margin: 46px auto;
+	padding: 15px 34px;
+	background: #FFFDE7;
+	font-weight: bold;
+	box-shadow: 2px 2px 6px #cccccc;
+}
+.list__header {
+	color: #189BA3;
+}
+.list__title {
+	margin: 18px 0;
+	font-size: 64px;
+	text-align: center;
+}
+.list__form {
+	position: relative;
+	display: flex;
+}
+.list__input {
+	height: 36px;
+	width: 300px;
+	border: 1px solid #189BA3;
+}
+.list__container {
+	list-style-type: none;
+	padding: 0;
+}
+.list__item {
+	position: relative;
+	display: flex;
+	margin: 12px 0px;
+	padding: 10px 0;
+}
+.list__item:hover {
+	background-color: rgba( 255, 255, 255, 0.9);
+	margin: 12px 0px;
+}
+.list__checkbox {
+  position: relative;
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  border: 2px solid #189BA3;
+  box-sizing: border-box;
+  border-radius: 3px;
+  margin-right: 10px;
+}
+.btn {
+	background-color: transparent;
+    border: inherit;
+    padding: 8px;
+    transition: all 0.2s;
+	border: 1px solid #189BA3;
+	color: #189BA3;
+}
+.list__todo {
+    font-size: 16px;
+	color: #189BA3;
+}
+.list__add, .list__del {
+	position: absolute;
+	right: 0px;
+	top: 0;
+    font-size: 16px;
+}
+.list__done {
+	text-decoration: line-through;
+    opacity: 0.4;
+}
+.list__btn_checked {
+	background-color: #189BA3;
+}
