@@ -1,0 +1,329 @@
+    body {
+        font-family: MicrosoftJhengHei;
+    }
+    .wrapper {
+        display: flex;
+        height: 84px;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1920px;
+        padding: 0 12px;
+        margin: 0 auto;
+    }
+    .container__full {
+        max-width: 1920px;
+        margin: 0 auto;
+        width: 100%;
+    } 
+    .container__layout {
+        max-width: 1920px;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 12px;
+        margin: 0 auto;
+    }
+    .header {
+        height: 84px;
+        background: #ffffff;
+        box-shadow: -1.4px -1.4px 6px 0 #97a2a0;
+    }
+    .header__logo {
+        display: block;
+        margin: 4px 0;
+    }
+    .logo {
+        font-family: Questrial;
+        color: #489846;
+        font-size: 36px;
+        white-space: nowrap;
+    }
+    .header__navbar {
+        display: flex;
+    }
+
+    .header__navbar a {
+        display: block;
+        width: 120px;
+        padding: 22px 0;
+        margin: 8px;
+        font-size: 18px;
+        border-radius: 8px; 
+        text-decoration: none; 
+        text-align: center;
+        color: #010101;    
+        background: #ffffff;
+        transition: background-color 0.1s;
+    }
+    .header__navbar a:hover, .header__navbar a:first-child {
+        display: block;
+        width: 120px;
+        padding: 22px 0;
+        margin: 8px;
+        border-radius: 8px; 
+        text-decoration: none; 
+        text-align: center;
+        color: #ffffff;    
+        background: #ff7286;
+    }
+    .banner {
+        position: relative;
+        background: url('./img/2.png') center/cover no-repeat;
+        height: 580px;
+    }
+    .banner::after {
+        content: '';
+        position: absolute;
+        background: rgba(0, 0, 0, 0.5);
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+    .banner h1{
+        display: inline-block;
+        position: relative;
+        font-size: 60px;
+        font-weight: bold;
+        color: #ffffff;
+        z-index: 1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .introduce__title {
+        margin-top: 80px;
+        text-align: center;
+    }
+    .introduce__title h2{
+        display: inline-block;
+        font-size: 36px;
+        font-weight: bold;
+        color: #000000;
+        padding-left: 16px;
+        margin-bottom: 36px;
+        border-left: solid 18px #a3dea2;
+    }
+    .introduce__text {
+        font-size: 16px;
+        color: #000000;
+        line-height: 2em;
+    }
+    .buttons {
+        display: flex;
+        margin-top: 80px;
+        justify-content: center;
+    }
+    .button{
+        display: inline-block;
+        padding: 72px 80px;
+        border-radius: 10px;
+        font-size: 36px;
+        cursor: pointer;
+        margin: 0 12px;
+    }
+    .button a {
+        text-decoration: none;
+        color: #3e613d;
+    }
+    .button:hover {
+        transform: scale(1.1);
+    }
+    .botton__order {
+        background: #a8e8e1;
+    }
+    .botton__search {
+        background: #f9f9b5;
+    }
+    .cookbook__img {
+        display: flex;
+    }
+    .cookbook__img div{
+        width: 25%;
+    }
+    .cookbook__img img{
+        width: 100%;
+    }
+    .review {
+        margin-top: 34px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .review__content {
+        position: relative;
+        width: 565px;
+        padding: 60px 0 24px 0;
+        margin: 0 8px;
+        border-radius: 5px;
+        box-shadow: -1.4px -1.4px 4px 0 var(--light-blue-grey);
+        border: solid 1px #c7e5ec;
+        font-size: 16px;
+        text-align: center;
+        color: #000000;
+    }
+    .review__avatar {
+        position: absolute;
+        width: 105px;
+        height: 105px;
+        top: 0;
+        left: 50%;
+        border: solid 1px #c1c1c1;
+        border-radius: 50%;
+        background-color: #c1c1c1;
+        transform: translate(-50%, -50%);
+    }
+    .review__info {
+        line-height: 2em;
+        padding: 8px;
+    }
+    .map {
+        margin-bottom: 36px;
+	}
+	.section__lottery {
+		position: relative;
+		background: url('./img/games-bn.jpg');
+		height: 100vh;
+	}
+	.lottery__info {
+		position: absolute;
+		max-width: 500px;
+		background: #ffffff;
+		padding: 18px;
+		border-radius: 16px;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+	.lottery__info__detail {
+		display: flex;
+		border-bottom: dotted 1px #cdcdcd;;
+	}
+	.lottery__info__title {
+		margin: 36px 0;
+		text-align: center;
+		font-size: 24px;
+		font-weight: bold;
+		color:#5ec1b6;
+	}
+	.lottery__info__detail-title {
+		white-space: nowrap;
+		font-size: 18px;
+		font-weight: bold;
+	}
+	.lottery__info__detail-content {
+		font-size: 16px;
+	}
+	.lottery__info__detail-title, .lottery__info__detail-content {
+		padding: 18px 8px;
+		text-align: left;
+	}
+	.lottery__submit {
+		
+	}
+    .footer__top {
+        display: flex;
+        padding: 36px 12px;
+        justify-content: space-between;
+        font-size: 14px;
+        color: #484848;
+        line-height: 2em;
+        background: #e8efee;
+    }
+    .footer__logo > .logo {
+        margin-bottom: 12px;
+    }
+    .footer__logo a{
+        text-decoration: none;
+        color: #000000;
+    }
+    .footer__bottom {
+        padding: 20px 0;
+        text-align: center;
+        font-size: 16px;
+        color: #ffffff;
+        background: #35564b;
+	}
+    
+@media(max-width: 768px) {
+    .wrapper {
+        max-width: 100%;
+        height: 96px;
+        margin: 0 auto;
+        padding: 0;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .header {
+        width: 100%;
+        height: 96px;
+        padding: 10px 0 0 0;
+        background: #ffffff;
+        box-shadow: -1.4px -1.4px 6px 0 #97a2a0;
+    }
+    .header__logo {
+        font-size: 36px;
+    }
+    .header__navbar {
+        padding: 0px;
+        width: 100%;
+
+    }
+    .header__navbar a {
+        display: block;
+        width: 25%;
+        margin: 0;
+        padding: 22px 16px;
+        text-decoration: none; 
+        text-align: center;
+        border-radius: 0; 
+        color: #010101;    
+        background: #ffffff;
+    }
+    .header__navbar a:hover, .header__navbar a:first-child {
+        display: block;
+        width: 25%;
+        margin: 0;
+        padding: 22px 16px;
+        border-radius: 0; 
+        text-decoration: none; 
+        text-align: center;
+        color: #ffffff;    
+        background: #ff7286;
+    }
+    .banner {
+        position: relative;
+        background: url('./img/2.png') center/cover no-repeat;
+        height: 420px;
+    }
+    .introduce__title {
+        margin-top: 60px;
+    }
+    .introduce__title h2{
+        margin-bottom: 24px;
+    }
+    .buttons {
+        flex-direction: column;
+    }
+    .button{
+        padding: 60px 60px;
+        margin: 12px;
+        text-align: center;
+    }
+    .cookbook__img {
+        flex-direction: column;
+    }
+    .cookbook__img div{
+        width: 100%;
+    }
+    .review {
+        margin-top: 0;
+        flex-direction: column;
+    }
+    .review__content {
+        width: 100%;
+        padding: 60px 0 24px 0;
+        margin: 64px 0 0 0;
+    }
+    .footer__top {
+        flex-direction: column-reverse;
+    }
+}
