@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>新拖延運動報名表單</title>
+</head>
+<body>
+    <div class="lazyform__container">
+        <div class="lazyform__title_colorbox"></div>
+        <div class="lazyform__content">
+            <h1 class="lazyform__title">新拖延運動報名表單</h1>
+            <div class="lazyform__info">
+                <p>活動日期：2020/12/10 ~ 2020/12/11</p>
+                <p>活動地點：台北市大安區新生南路二段1號</p>
+            </div>
+            <div class="lazyform__necessary">*必填</div>
+            <form action="">
+                <div class="lazyform__input necessary_star hide__error"> 
+                    <label for="nickname" class="form__caption">暱稱</label><br />
+                    <input type="text" name="nickname" id="nickname" placeholder="您的回答">
+                    <div class="info__error">請輸入暱稱</div>
+                </div>	
+                <div class="lazyform__input necessary_star hide__error"> 
+                    <label for="email" class="form__caption">電子郵件</label><br />
+                    <input type="email" name="email" id="email" placeholder="您的電子郵件">
+                    <div class="info__error">請輸入電子郵件</div>
+                </div>
+                <div class="lazyform__input necessary_star hide__error"> 
+                    <label for="phone" class="form__caption">手機號碼</label><br />
+                    <input type="tel" name="phone" id="phone" placeholder="您的手機號碼">
+                    <div class="info__error">請輸入手機號碼</div>
+                </div>
+                <div class="lazyform__radio necessary_star hide__error">
+                    <p class="form__caption">報名類型</p>
+                    <p class="form__radio_height">
+                        <input type="radio" name="lazy_type" id="daydreaming" value="daydreaming_in_bed">
+                        <label for="daydreaming" class="form__radio">躺在床上用想像力實作</label><br />
+                    </p>
+                    <p class="form__radio_height">
+                    <input type="radio" name="lazy_type" id="slide_phone" value="slide_your_phone_on_the_ground">
+                    <label for="slide_phone" class="form__radio">趴在地上滑手機找現成的</label><br />
+                    </p>
+                    <div class="info__error">請選擇報名類型</div>
+                </div>
+                <div class="lazyform__input necessary_star hide__error"> 
+                    <label for="how_to_know" class="form__caption">怎麼知道這個活動的？</label><br />
+                    <input type="text" name="how_to_know" id="how_to_know" placeholder="您的回答">
+                    <div class="info__error">請輸入回答</div>
+                </div>
+                <div class="lazyform__input"> 
+                    <label for="other" class="form__caption">其他</label><br />
+                    <span class="lazyform__info">對活動的一些建議</span><br />
+                    <input type="text" name="other" id="other" placeholder="您的回答">
+                </div>
+                <div class="lazyform__submit">
+                    <input type="submit" value="提交">     
+                </div>
+                <div class="lazyform__info">
+                    <p>請勿透過表單送出您的密碼。</p>
+                </div>
+           </form>
+        </div><!-- end lazyform__content -->
+    </div><!-- end lazyform__container -->
+    <div class="lazyform__footer">
+        <p>© 2020 © Copyright. All rights Reserved.</p>
+    </div>
+    <script>
+        // 選到最上層的 class 並加上 submit 的監聽，阻止預設的瀏覽器行為。
+        document
+            .querySelector('.lazyform__container')
+            .addEventListener('submit', function(e) {
+                e.preventDefault()
+
+               // 監聽 input 有沒有內容
+                const elements = document.querySelectorAll('.lazyform__input');
+                for (let element of elements) {
+                    const inputText = element.querySelector('input[type=text]');
+                    const inputEmail = element.querySelector('input[type=email]');
+                    const inputPhone = element.querySelector('input[type=tel]');
+                    if (inputText) {
+                        if (!inputText.value) {
+                            inputText.parentNode.classList.remove('hide__error');
+                        } else {
+                            inputText.parentNode.classList.add('hide__error');
+                        }
+                    } else if (inputEmail) {
+                        if (!inputEmail.value) {
+                            inputEmail.parentNode.classList.remove('hide__error');
+                        } else {
+                            inputEmail.parentNode.classList.add('hide__error');
+                        }                        
+                    } else if (inputPhone) {
+                        if (!inputPhone.value) {
+                            inputPhone.parentNode.classList.remove('hide__error');
+                        } else {
+                            inputPhone.parentNode.classList.add('hide__error');
+                        }
+                    } else {
+                        continue;
+                    }
+                }
+                // 監聽 radio 有沒有被選到
+                const inputRadios = document.querySelectorAll('.lazyform__radio input[type=radio]');
+                for (let inputRadio of inputRadios) {
+                    if (inputRadios.length) {
+                        let isValid = [...inputRadios].some(radio => radio.checked);
+                        if (!isValid) {
+                            inputRadio.parentNode.parentNode.classList.remove('hide__error');
+                        } else {
+                            inputRadio.parentNode.parentNode.classList.add('hide__error');
+                        }
+                    }
+                }
+            });
+
+    </script>
+</body>
+</html>

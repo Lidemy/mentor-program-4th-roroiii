@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./reset.css">
+	<link rel="stylesheet" href="./style.css">
+	<title>To Do List</title>
+</head>
+<body>
+	<div class="container">
+		<div class="list__header">
+			<div class="list__title">Todo List</div>
+			<div class="list__form">
+				<input class="list__input"	type="text" placeholder="Add something to do here <(￣︶￣)>?">
+				<button class="btn list__add">新增</button>
+			</div>
+		</div>
+		<ul class="list__container">
+			<li class="list__item">
+				<input type="checkbox" class="list__checkbox">
+				<p class="list__todo">完成 Pay bills</p>
+				<button class="btn list__del" type="button">刪除Ｘ</button>
+			</li>
+		
+		</ul>
+	</div>
+	<script>
+		//新增
+		document.querySelector('.list__add').addEventListener('click', function(event) {
+			const inputValue = document.querySelector('.list__input').value;
+			console.log('inputValue');
+			//如果是空值就回傳
+			if(!inputValue) return;
+			const addDiv = document.createElement('div');
+			addDiv.innerHTML = `	
+				<li class="list__item">
+					<input type="checkbox" class="list__checkbox">
+					<p class="list__todo">${escapeHtml(inputValue)}</p>
+					<button class="btn list__del" type="button">刪除Ｘ</button>
+				</li>`;
+			document.querySelector('.list__container').appendChild(addDiv);
+			// 防止連點新增多筆，新增一筆後就把值清空
+			document.querySelector('.list__input').value = '';
+		})
+		document.querySelector('.list__container').addEventListener('click', function(event) {
+			// 告訴大家 target 在 event 家裡面 
+			const { target } = event
+			
+			//刪除
+			if (target.classList.contains('list__del')) {
+				target.parentNode.remove();
+			}
+			
+			//完成
+			if (target.classList.contains('list__checkbox')) {
+				if (target.checked) {
+					target.parentNode.classList.add('list__done');
+				} else {
+					target.parentNode.classList.remove('list__done');
+				}
+			}
+		})
+
+		//避免字串錯誤
+		function escapeHtml(unsafe) {
+				return unsafe
+					.replace(/&/g, "&amp;")
+					.replace(/</g, "&lt;")
+					.replace(/>/g, "&gt;")
+					.replace(/"/g, "&quot;")
+					.replace(/'/g, "&#039;");
+			}
+	</script>
+</body>
+</html>
