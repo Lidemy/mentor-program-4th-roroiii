@@ -50,11 +50,18 @@
 					❤ 參獎十名：知名 YouTuber 簽名握手會入場券一張(市價1500元)
 				</div>
 			</div>
-			<button class="lottery__submit">我要抽獎</button>
+			<div class="lottery__info__detail">
+				<button class="lottery__submit">我要抽獎</button>
+			</div>
+		</div>   
+	</div>
+	<!-- 獎項 -->
+	<div class="lottery__winning hide">
+		<div class="lottery__winning__title">
+			獎品名稱
 		</div>
-        
-    </div>
-    
+		<button class="lottery__submit" onclick='window.location.reload();'>再抽一次</button>
+	</div>
     <!-- footer -->
     <div class="footer">
         <section class="container__full">
@@ -77,8 +84,67 @@
             </div>
         </section>
 	</div>
-	<script>
-		
+	<script>		
+		// 點擊抽獎按鈕
+		document.querySelector('.lottery__submit').addEventListener('click', function(){
+			const request = new XMLHttpRequest();
+			request.addEventListener('load', function(){
+				if (request.status >= 200 && request.status <= 400) {
+					// console.log('成功' + request.responseText);
+					const data = JSON.parse(request.responseText);
+					
+					// 判斷 API 回傳的值
+					switch (data.prize) {
+						case 'FIRST' :{
+							console.log('switch FIRST 第一個');
+							document.querySelector('.lottery__winning').classList.remove('hide');
+							document.querySelector('.lottery__info').classList.add('hide');
+							document.querySelector('.lottery__winning__title').innerText = '恭喜你中頭獎了！日本東京來回雙人遊！';
+							document.querySelector('.section__lottery').classList.add('first__prize');
+							break;
+						}
+						case 'SECOND' :{
+							console.log('switch SECOND 第二個');
+							document.querySelector('.lottery__winning').classList.remove('hide');
+							document.querySelector('.lottery__info').classList.add('hide');
+							document.querySelector('.lottery__winning__title').innerText = '二獎！90 吋電視一台！';
+							document.querySelector('.section__lottery').classList.add('second__prize');
+							break;
+						}
+						case 'THIRD' :{
+							console.log('switch THIRD 第三個');
+							document.querySelector('.lottery__winning').classList.remove('hide');
+							document.querySelector('.lottery__info').classList.add('hide');
+							document.querySelector('.lottery__winning__title').innerText = '恭喜你抽中三獎：知名 YouTuber 簽名握手會入場券一張，bang！';
+							document.querySelector('.section__lottery').classList.add('third__prize');
+							break;
+						}
+						case 'NONE' :{
+							console.log('switch NONE');
+							document.querySelector('.lottery__winning').classList.remove('hide');
+							document.querySelector('.lottery__info').classList.add('hide');
+							document.querySelector('.lottery__winning__title').innerText = '銘謝惠顧';
+							document.querySelector('.lottery__winning__title').style.color ='#ffffff';
+							document.querySelector('.section__lottery').classList.add('none__prize');
+							break;
+						}
+					}
+				} else {
+					console.log('失敗'+ request.status + request.responseText);
+					alert('系統不穩定，請再試一次');
+				}
+			})
+			request.onerror = function() {
+				console.log('錯誤error');
+				alert('系統不穩定，請再試一次');
+			}
+			request.open('GET','https://dvwhnbka7d.execute-api.us-east-1.amazonaws.com/default/lottery', true);
+			request.send();
+
+
+		})
+
+
 	</script>
 </body>
 </html>
