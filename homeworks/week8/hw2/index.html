@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./reset.css">
+	<link rel="stylesheet" href="./style.css">
+	<title>hw2：再戰 Twitch API</title>
+</head>
+<body>
+	<div class="header">
+		<div class="logo_name">
+			<img src="./twitch_logo.jpeg" alt="Twitch Top Games">
+		</div>
+		<div class="navbar">
+		</div>
+	</div>
+	<div class="container">
+		<div class="title_text">
+			<h2>目前最熱門的 5 個遊戲</h2>
+			<p>Top 5 popular live streams Games</p>
+		</div>
+		<div class="view_contain">
+		</div>
+	</div>
+	<script>
+		const gamesLength = 5;
+		const streamsLength = 20;
+		const GAMES_API = 'https://api.twitch.tv/kraken/games/top?limit=5';
+		const LIVE_STREAMS_API = 'https://api.twitch.tv/kraken/streams';
+
+		// 抓遊戲名稱
+		function getGames() {
+			const request = new XMLHttpRequest();
+			request.addEventListener('load', function() {
+				if (request.status >= 200 && request.status <= 400) {
+					const twitchGames = JSON.parse(request.response);
+					let name = [];
+					for (let i = 0; i < gamesLength; i++) {
+						name.push(twitchGames.top[i].game.name);
+					}
+					appendNavbar(name);
+					appendView(twitchGames);
+					clickNavbar(name);
+				}
+			})
+			request.onerror = function() {
+				console.log('錯誤error');
+			}
+			request.open('GET', GAMES_API, true);
+			request.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json');
+			request.setRequestHeader('Client-ID', 'h55uw1lc9z8ac5qtjxhtpbnaguqcxj');
+			request.send();
+		}
+
+		// 抓直播遊戲內容
+		function getStreams(name) {
+			const requestStreams = new XMLHttpRequest();
+			requestStreams.addEventListener('load', function() {
+				if (requestStreams.status >= 200 && requestStreams.status <= 400) {
+					const twitchStreams = JSON.parse(requestStreams.response);
+					hotStreams(twitchStreams);	
+					document.querySelector('h2').innerText = name
+        			document.querySelector('p').innerHTML = 'Top 20 popular live streams sorted by current viewers';
+				}
+			})
+			requestStreams.open('GET', `${LIVE_STREAMS_API}?game=${name}`, true);
+			requestStreams.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json');
+			requestStreams.setRequestHeader('Client-ID', 'h55uw1lc9z8ac5qtjxhtpbnaguqcxj');
+			requestStreams.send();
+		}
+
+		// 顯示熱門遊戲名稱在Ｎavbar 
+		function appendNavbar(name) {
+			const elementNav = document.querySelector('.navbar');
+			for (let i = 0; i < gamesLength; i++) {
+				const addDiv = document.createElement('div');
+				addDiv.classList.add('navbar_list');
+				elementNav.appendChild(addDiv);
+				addDiv.innerHTML = `<a href="#">${name[i]}</a>`;
+			}
+		}
+
+		// 顯示熱門遊戲
+		function appendView(twitchGames) {
+			const elementView = document.querySelector('.view_contain');
+			for (let i = 0; i < gamesLength; i++) {
+				const addDiv = document.createElement('div');
+				const templateView = `
+					<div class="view">
+						<div class="view_box">
+							<img src="${twitchGames.top[i].game.box.large}" alt="">
+						</div>
+						<div class="view_info">
+							<div class="view_info-logo">
+								<img src="${twitchGames.top[i].game.logo.small}" alt="">
+							</div>
+							<div class="view_info-title">遊戲名稱：${twitchGames.top[i].game.name}</div>
+							<div class="view_info-name">觀看次數：${twitchGames.top[i].viewers}</div>
+						</div>
+					</div>`;
+				elementView.appendChild(addDiv);
+				addDiv.innerHTML = `${templateView}`;
+			}
+		}
+
+		// 點擊選單切換
+		function clickNavbar(name) {
+			const clickNav = document.querySelectorAll('.navbar_list');
+			for(let i = 0; i < clickNav.length; i++) {
+				clickNav[i].addEventListener('click', function() {
+					getStreams(name[i]);		
+				})
+			}
+		}
+
+		// 顯示前 20 個熱門 Streams
+			function hotStreams(twitchStreams) {
+				const containView = document.querySelector('.view_contain');
+				containView.innerHTML = `<div></div>`;
+				for (let i = 0; i < streamsLength; i++) {
+					const addDiv = document.createElement('div');
+					const templateGame = `
+						<div class="stream">
+							<div class="stream_view">
+								<img src="${twitchStreams.streams[i].preview.large}" alt="">
+							</div>
+							<div class="stream__info">
+								<div class="stream__avatar">
+									<img src="${twitchStreams.streams[i].channel.logo}" alt="">
+								</div>
+								<div class="stream_text">
+									<div class="stream_title">${twitchStreams.streams[i].channel.status}</div>
+									<div class="stream_channel">${twitchStreams.streams[i].channel.name}</div>
+								</div>
+							</div>
+						</div>`;
+				containView.appendChild(addDiv);
+				addDiv.innerHTML = `${templateGame}`;
+				}
+			}
+		getGames();
+	</script>
+</body>
+</html>
