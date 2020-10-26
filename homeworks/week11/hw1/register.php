@@ -32,15 +32,15 @@
         <form class ="board__new-comment-form" method="POST" action="handle_register.php">
             <div class="board__nickname">
                 <label for="nickname">暱稱：</label>
-                <input type="text" name="nickname">
+                <input type="text" name="nickname" class="board__nickname-input">
             </div>
             <div class="board__nickname">
                 <label for="username">帳號：</label>
-                <input type="text" name="username">
+                <input type="text" name="username" class="board__nickname-input">
             </div>
             <div class="board__nickname">
                 <label for="password">密碼：</label>
-                <input type="password" name="password">
+                <input type="password" name="password" class="board__nickname-input">
             </div>
             <input class="board__submit-btn" type="submit">
         </form>

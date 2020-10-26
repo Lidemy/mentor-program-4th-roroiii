@@ -3,24 +3,18 @@
     require_once('conn.php');
     require_once('utils.php');
 
-	if (empty($_POST['content'])
+	if (empty($_POST['nickname'])
 	) {
 		header('location: index.php?errCode=1');
 		die('資料不齊全');
 	}
 
 	$username = $_SESSION['username'];
-	$user = getUserFromUsername($username);
-
-	if(!hasPermission($user, "create", NULL)) {
-		header("Location: index.php");
-		exit;
-	}
-
-    $content = $_POST['content'];
-	$sql = "INSERT INTO roroiii_comment(username, content) values(?, ?)";
+	$nickname = $_POST['nickname'];
+	$sql = "UPDATE roroiii_user SET nickname=? WHERE username=?";
+	
 	$stmt = $conn->prepare($sql);
-	$stmt->bind_param('ss',$username, $content);
+	$stmt->bind_param('ss',$nickname, $username);
 	$result = $stmt->execute();
 	if(!$result) {
 		die($conn->error);

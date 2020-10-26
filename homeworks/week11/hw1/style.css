@@ -44,7 +44,7 @@ body {
 	margin: 10px 0;
 }
 
-.board__nickname input {
+.board__nickname-input {
 	width: 30%;
 	min-width: 160px;
 	border: 1px solid #c2dffb;
@@ -61,8 +61,20 @@ body {
 	background: #ffffff;
 	color: #583c63;
 	font-size: 16px;
-	text-align: center;
 	text-decoration: none;
+}
+
+.board__btn-nickname {
+	display: inline-block;
+	padding: 5px;
+	margin: 0 0 14px 0;
+	border: 1px solid #c2dffb;
+	border-radius: 5px;
+	background: #ffffff;
+	color: #583c63;
+	font-size: 16px;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 .board__submit-btn {
@@ -122,4 +134,33 @@ body {
 	font-size: 18px;
 	color: #a20606;
 	margin: 8px 0;
+}
+
+.hide {
+	display: none;
+}
+
+.page-info {
+	text-align: center;
+}
+
+.paginator {
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+}
+
+.paginator_a {
+	text-decoration: none;
+	color: #5c9edc;
+	border: 1px solid #5c9edc;
+	padding: 10px;
+}
+
+.board__table {
+	margin: 0 auto;
+}
+
+.board__table-pd{
+	padding: 6px 10px;
 }

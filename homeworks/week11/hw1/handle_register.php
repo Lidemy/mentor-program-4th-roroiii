@@ -1,4 +1,5 @@
 <?php
+	session_start();
     require_once('conn.php');
 
 	if (empty($_POST['nickname']) ||
@@ -11,15 +12,13 @@
 
     $nickname = $_POST['nickname'];
     $username = $_POST['username'];
-    $password = $_POST['password'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-	$sql = sprintf("INSERT INTO roroiii_user(nickname, username, password) values('%s', '%s', '%s')",
-	$nickname,
-	$username,
-	$password
-	);
+	$sql = "INSERT INTO roroiii_user(nickname, username, password) values(?, ?, ?)";
+	$stmt = $conn->prepare($sql);
+  	$stmt->bind_param('sss', $nickname, $username, $password);
+  	$result = $stmt->execute();
 
-	$result = $conn->query($sql);
 	if(!$result) {
 		$code = $conn->errno;
 		if ($code === 1062) {
@@ -27,6 +26,6 @@
 		}
 		die($conn->error);
 	}
-
+	$_SESSION['username'] = $username;
 	header("Location: index.php");
 ?>

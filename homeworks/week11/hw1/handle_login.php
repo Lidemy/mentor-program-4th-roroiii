@@ -1,5 +1,7 @@
 <?php
+    session_start();
     require_once('conn.php');
+    require_once('utils.php');
 
     if (empty($_POST['username']) ||
         empty($_POST['password'])
@@ -11,20 +13,26 @@
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $sql = sprintf("SELECT * FROM roroiii_user WHERE username = '%s'AND password ='%s'",
-    $username,
-    $password
-    );
-
-    $result = $conn->query($sql);
+    $sql = "SELECT * FROM roroiii_user WHERE username =?";
+	$stmt = $conn->prepare($sql);
+	$stmt->bind_param('s', $username);
+    $result = $stmt->execute();
     if(!$result) {
         die($conn->error);
-    }
-    if ($result->num_rows) {
-		// echo '登入成功！';
-		$expire = time() + 3600 * 24 * 30; // 30 day
-		setcookie("username", $username, $expire);
-		header("Location: index.php");
+	}
+	$result = $stmt->get_result();
+    if ($result->num_rows === 0) {
+		header("Location: login.php?errCode=2");
+		exit();
+	}
+		
+	// 有查到使用者
+	$row =$result->fetch_assoc();
+	if(password_verify($password, $row['password'])) {
+        // 登入成功
+        // 產生 session id -> username 寫入檔案 -> set-cookie: session-id
+        $_SESSION['username'] = $username;
+        header("Location: index.php");
     } else {
         header("Location: login.php?errCode=2");
     }
