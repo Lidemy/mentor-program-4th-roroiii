@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>week12 留言板</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <style>
+      .main {
+        max-width: 800px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main m-auto pt-5">
+      <form class="add-comment-form">
+        <div class="form-group">
+          <label for="nickname">暱稱</label>
+          <input
+            name="nickname"
+            type="text"
+            class="form-control"
+            id="nickname"
+            placeholder="nickname"
+          />
+        </div>
+        <div class="form-group">
+          <label for="content-textarea">留言內容</label>
+          <textarea
+            name="content"
+            class="form-control"
+            id="content-textarea"
+            rows="3"
+          ></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">送出</button>
+      </form>
+      <div class="comments">
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+      const siteKey = 'Tina';
+      const loadMoreButtonHtml = '<button class="load-more mt-3 mb-3 btn btn-primary">載入更多</button>';
+      const commentsDOM = $('.comments');
+      let lastID = null;
+      let isEnd = false;
+
+      //js xss escape
+      function escapeHTML(unsafe) {
+        return unsafe
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      // 新增留言
+      function appendCommentToDOM(container, comment, isPrepend) {
+        const html = `
+          <div class="card mb-2 mt-3">
+            <div class="card-body">
+              <div class="card-top d-flex">
+                <h5 class="card-title">${escapeHTML(comment.nickname)}</h5>
+              </div>
+                <p class="card-text content">${escapeHTML(comment.content)}</p>
+                <input hidden value="${comment.id}"/>
+              </div>
+            </div>
+          </div>`;
+        if (isPrepend) {
+          container.prepend(html);
+        } else {
+          container.append(html);
+        }
+      }
+
+      // 拿留言的API
+      function getCommentsAPI (siteKey, before, cb) {
+        let APIUrl = `http://localhost:8080/dashboard-api/api_comment.php?site_key=${siteKey}`;
+        if (before) {
+          APIUrl += '&before=' + before;
+        }
+        $.ajax({
+          url: APIUrl,
+        }).done((data) => {
+          cb(data);  //把拿到的 data 傳入 cb function執行得到結果
+        });
+      }
+
+      // 拿留言
+      function getComments() {
+        $('.load-more').hide();
+        if (isEnd) { 
+          return  // 如果 isEnd 就跳出不執行以下的程式
+        }
+        getCommentsAPI(siteKey, lastID, data => {
+          if (!data.check_ok) {
+            console.log(data.message); // 如果沒拿到資料，報錯誤訊息
+            return
+          }
+          const comments = data.discussion;
+          for (let comment of comments) {
+            appendCommentToDOM(commentsDOM , comment); //拿出所有資料並新增上去
+          }
+          let length = comments.length;
+          if (length < 5) {
+            isEnd = true;
+            $('.load-more').hide();
+          } else {
+            lastID = comments[length - 1].id;
+            commentsDOM.append(loadMoreButtonHtml);  // 加上載入更多按鈕
+          }      
+        })
+      }
+
+
+      $(document).ready(() => {
+        getComments();
+
+        commentsDOM.on('click', '.load-more', () => {  // 點擊按鈕再拿一次留言
+          getComments();  
+        })
+        
+        //送出資料
+        $(".add-comment-form").submit((e) => {
+          e.preventDefault();
+          const newCommentData = {
+            site_key: 'Tina',
+            nickname: $('input[name=nickname]').val(),
+            content: $('textarea[name=content]').val(),
+          };
+          $.ajax({
+            type: 'POST',
+            url: 'http://mentor-program.co/mtr04group5/roroiii/week12/api_add_comment.php',
+            data: newCommentData,
+          }).done((data) => {
+            if (!data.check_ok) {
+              console.log(data.message); // 如果沒拿到資料，報錯誤訊息
+              return
+            }
+            //TODO
+            appendCommentToDOM(commentsDOM , newCommentData ,true);
+            $('input[name=nickname]').val('');
+            $('textarea[name=content]').val('');
+          });
+        });
+      });
+
+    </script>
+  </body>
+</html>
