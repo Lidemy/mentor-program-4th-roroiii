@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Asap+Condensed&display=swap" rel="stylesheet">
+  <title>TODO LIST</title>
+  <style>
+    body {
+      background-color: #f5f5f5;
+      font-family: 'Asap Condensed', sans-serif;
+      color: #333333;
+
+    }
+    .row .col-8 {
+      background-color: #ffffff;
+      box-shadow: 3px 3px 10px 0px #dadada;
+    }
+    .todo {
+      display: flex;
+    }
+  </style>
+</head>
+<body>
+  <!-- 新增 todo
+編輯 todo
+刪除 todo
+標記完成/未完成
+清空 todo
+篩選 todo（全部、未完成、已完成） -->
+<div class="container">
+  <h1 class="text-center mt-5
+  ">TODO LIST</h1>
+  <div class="row mt-3">
+    <div class="col-8 offset-2 p-3 main">
+      <div id="form">
+        <div class="form-group d-flex">
+          <input type="text" class="form-control form-control-lg mr-2" id="todo" name="todo" placeholder="What needs to be done?">
+          <button type="submit" class="btn btn-primary ml-auto" id="submit">Submit</button>
+        </div>
+      </div>
+        <div id="list">
+          <!-- TODO add -->
+
+        </div>
+        <hr>
+        <div class="nav d-flex align-items-center">
+          <div class="mr-auto"><span id="count">0</span> items</div>
+          <div class="d-flex option">
+            <li class=" mr-2">
+              <div class="btn btn-outline-primary active" data-filter="all">All</div>
+            </li>
+            <li class=" mr-2">
+              <div class="btn btn-outline-primary" data-filter="active">Active</div>
+            </li>
+            <li class="">
+              <div class="btn btn-outline-primary" data-filter="completed">Completed</div>
+            </li>
+          </div>
+          <div class="btn btn-primary ml-auto" id="clear">Clear completed</div>
+        </div>
+
+    </div>
+  </div>
+</div>
+<script>
+    let id = 1;
+    const item = ` <div class="todo was-validated align-items-center m-2">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input checkbox" id="todo-{id}">
+                <label class="custom-control-label" for="todo-{id}">{content}</label>
+              </div>
+              <div class="ml-auto">
+                <button class="btn btn-outline-primary" id="delete">Delete</button>
+              </div> 
+            </div>` ;
+
+    // 新增按鈕 & Enter 執行新增
+    $('#submit').click(function(){
+      addlist();
+    })
+
+    $('#todo').keydown((e) =>{
+      if(e.key === 'Enter'){
+        addlist();
+      }
+    })
+
+    // 新增
+    function addlist () { 
+      const $value = $('input[name="todo"]').val();
+      if (!$value) return
+      $('#list').append(
+        item
+          .replace(/{id}/g, id)  // 找到所有包含 id 的字串做替換
+          .replace('{content}', escapeHtml($value)) // {content} 自訂代表被替換的內容
+      );
+      $('input[name="todo"]').val('');
+      $('#count').text($('.custom-control-input').length++);
+      id ++;
+    }
+
+    // 刪除
+    $('#list').on('click', '#delete', (e) => {
+      $(e.target).parent().parent().remove();
+      $('#count').text($('.custom-control-input').length--);
+    })
+
+    // 清空列表
+    $('#clear').click(() =>{
+      $('.todo').remove();
+      $('#count').text('0');
+    })
+
+    // change
+    $('#list').on('change', '.checkbox', (e) => {
+      const target = $(e.target);
+      const isChecked = target.is(':checked');
+      /* parent() 只往上查找一層
+         closest() 往上查找 只要找到符合條件的 就停止
+         parents() 往上查找 不停止 找出所有符合條件的 */
+      if (isChecked) {
+        target.parents('.todo').addClass('checked');
+      } else {
+        target.parents('.todo').removeClass('checked');
+      }
+    })
+
+    // 顯示
+    $('.option').on('click', 'div', (e) => {
+      const target = $(e.target);
+      const fliter = target.attr('data-filter');
+      $('.option div.active').removeClass('active');
+      target.addClass('active');
+      if(fliter === 'all') {
+        $('.todo').show();
+      } else if (fliter === 'active') {
+        $('.todo').show();
+        $('.todo.checked').hide();
+      } else if (fliter === 'completed') {
+        $('.todo').hide();
+        $('.todo.checked').show();
+      }
+    })
+
+    //escape
+    function escapeHtml(unsafe) {
+      return unsafe
+           .replace(/&/g, "&amp;")
+           .replace(/</g, "&lt;")
+           .replace(/>/g, "&gt;")
+           .replace(/"/g, "&quot;")
+           .replace(/'/g, "&#039;");
+    }
+
+</script>
+</body>
+</html>
