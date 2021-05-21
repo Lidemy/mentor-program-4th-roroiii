@@ -22,7 +22,11 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'no-tabs':'off',
-     'indent': ['error', 'tab'],
-     'indent': ['error', 4],
+     'indent': ['off', 'tab'],
+     'indent': ['off', 4],
+     "semi": [0],
+     "quotes": [1, "single"],
+     "quote-props":[0, "always"],
+     "no-plusplus": 0,
   },
 };
