@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>week13 留言板</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="comments"></div>
+      <!-- <div class="comments-area"></div> -->
+    </div>
+
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="dist/main.js"></script>
+    <script>
+      $(document).ready(() => {
+        commentPlugin.init({
+          apiUrl: 'http://mentor-program.co/mtr04group5/roroiii/week13',
+          siteKey: 'Tina',
+          containerSelector: '.comments',
+        })
+
+        commentPlugin.init({
+          apiUrl: 'http://mentor-program.co/mtr04group5/roroiii/week13',
+          siteKey: 'Tina123',
+          containerSelector: '.comments',
+        })
+      })
+    </script>
+  </body>
+</html>

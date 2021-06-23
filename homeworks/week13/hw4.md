@@ -14,4 +14,4 @@ loader -> webpack -> bundler
 ## CSS Selector 權重的計算方式為何？
 * important > inline style > id > class > element > *
 * 行內元素 ( inline style ) > 頁面內 class > 引入 class 
-* 後面寫的 css 樣式會蓋掉前面寫的 css 樣式
+* 同層級的 Selector 後寫的 css 樣式會蓋掉前面寫的 css 樣式
